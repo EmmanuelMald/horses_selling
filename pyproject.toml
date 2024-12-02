@@ -11,4 +11,6 @@ dependencies = [
     "selenium>=4.27.1",
     "typing>=3.10.0.0",
     "transformers>=4.46.3",
+    "tensorflow>=2.18.0",
+    "tf-keras>=2.18.0",
 ]
