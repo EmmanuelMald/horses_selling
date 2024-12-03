@@ -11,4 +11,5 @@ dependencies = [
     "selenium>=4.27.1",
     "typing>=3.10.0.0",
     "transformers>=4.46.3",
+    "mkdocs>=1.6.1",
 ]
