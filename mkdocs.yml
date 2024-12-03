@@ -1,0 +1,14 @@
+site_name: Horse Selling Data Pipeline
+
+theme:
+  name: mkdocs
+  include_sidebar: True
+
+nav:  
+  - Introduction: index.md
+  # - Data preparation: data_preparation.md
+  # - Machine Learning models: 
+  #   - Tools implemented: machine_learning.md
+  #   - CO2 emissions estimator: co2_estimator.md
+  #   - Autonomy estimator: autonomy_estimator.md
+  # - Model deployment: deployment.md
