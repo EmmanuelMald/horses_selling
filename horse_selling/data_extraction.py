@@ -1,36 +1,36 @@
-from transformers import pipeline
+from transformers import T5Tokenizer, T5ForConditionalGeneration
 
-# Texto de entrada
-texto = "Caballo de la raza x, color café, ojos azules, pero creo que tiene una mancha morada en el lomo."
+# Cargar el modelo y tokenizer
+model_name = "google/flan-t5-base"
+tokenizer = T5Tokenizer.from_pretrained(model_name)
+model = T5ForConditionalGeneration.from_pretrained(model_name)
 
-# Crear un pipeline de question-answering
-qa_pipeline = pipeline("question-answering", model="deepset/roberta-base-squad2")
+# Texto de entrada con ejemplos
+texto_completo = """
+Ejemplo:
+4 años, 1.22, Guanajuato, Positivo en piro, 25k
+Respuestas de ejemplo:
+¿Que edad tiene?: 4 años,
+¿Altura del caballo (ejemplo 1.5)?: 1.22
+¿Precio en k euros (miles de euros)?: 25k
+¿Conoces alguna información general?: Positivo en piro
+¿Conoces la ciudad?: Guanajuato
 
-# Definir preguntas para extraer información relevante
-preguntas = [
-    {"question": "¿Qué especie es?", "context": texto},
-    {"question": "¿Cuál es la raza?", "context": texto},
-    {"question": "¿De qué color es?", "context": texto},
-    {"question": "¿De qué color son los ojos?", "context": texto},
-    {"question": "¿Hay algún detalle adicional?", "context": texto},
-]
+Ahora responde para el siguiente texto:
+"11 años, Nivel san Jorge 1.62 Libre de piro,70k"
+¿Cual es la edad?
+¿Altura del caballo en metros (ejemplo 1,5)?
+¿Precio en k euros (miles de euros)?
+¿Conoces alguna información general?
+¿Conoces la ciudad?
+"""
 
-# Extraer respuestas
-respuestas = [qa_pipeline(p)["answer"] for p in preguntas]
+# Tokenizar el texto de entrada
+inputs = tokenizer(texto_completo, return_tensors="pt", max_length=512, truncation=True)
 
-# Estructurar datos en un diccionario
-datos = {
-    "Especie": [respuestas[0]],
-    "Raza": [respuestas[1]],
-    "Color": [respuestas[2]],
-    "Ojos": [respuestas[3]],
-    "Detalle extra": [respuestas[4]],
-}
+# Generar la respuesta
+outputs = model.generate(inputs["input_ids"], max_length=512, num_beams=5, early_stopping=True)
 
-# Mostrar los datos estructurados
-import pandas as pd
-df = pd.DataFrame(datos)
-print(df)
-print(datos)
-# Guardar como archivo Excel
-df.to_excel("caballo_detalles.xlsx", index=False)
+# Decodificar la salida
+respuesta = tokenizer.decode(outputs[0], skip_special_tokens=True)
+print("Respuesta generada:", respuesta)

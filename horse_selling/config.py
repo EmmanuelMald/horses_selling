@@ -11,6 +11,8 @@ class HORSE_INFO(BaseSettings):
 
 
 if __name__ == "__main__":
-    config = PAGEINFO()
-    print(config.DRIVERPATH.get_secret_value())
-    print(config.HORSES1_URL)
+    config = HORSE_INFO()
+    
+    print(config.NAME)
+    config.NAME="eje"
+    print(config.NAME)
