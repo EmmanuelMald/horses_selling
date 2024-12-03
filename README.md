@@ -21,3 +21,17 @@ This will update the project’s environment
 Make is used to compile and build projects and automating a wide variety of repetitive tasks.
 
 You can download it [**here**](https://gnuwin32.sourceforge.net/packages/make.htm)
+
+## Repo Structure
+
+This repo has the next structure:
+
+- app/: Contains all the files related to the deployment
+
+- horses_selling/: It has the core of this application, it has the configuration files and useful functions.
+
+- docs/: markdown files that builds the project documentation
+
+- mkdocs.yml: Tree of the documentation files
+
+- uv.lock & pyproject.toml: Dependency manager tool
