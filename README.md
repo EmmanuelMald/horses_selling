@@ -30,6 +30,8 @@ This repo has the next structure:
 
 - horses_selling/: It has the core of this application, it has the configuration files and useful functions.
 
+- notebooks/: It has all the testing code. Whenever we want to test a new feature/functionality, we should first create a notebook, make all the necessary tests, and when we get something working, then we move that code to a python script 
+
 - docs/: markdown files that builds the project documentation
 
 - mkdocs.yml: Tree of the documentation files
